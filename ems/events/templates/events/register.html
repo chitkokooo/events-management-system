@@ -1,0 +1,15 @@
+{% extends 'events/base.html' %}
+
+{% block title %} Register Account {% endblock %}
+
+{% block content %}
+<div class="col-md-12 register-box">
+	 <form action="/accounts/register/" method="POST">
+	 	{% csrf_token %}
+	 	{{ form.as_p }}
+	 	<input type="submit" value="Register" class="btn btn-primary">
+	 </form>
+	 <br>
+	 Already have an account? <a href="{% url 'events:signin' %}" class=""> Login </a> here.
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'events/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block actions %}
+<div class="col-md-12 actions">
+	<form action="{% url 'events:index' %}" method="POST">
+		{% csrf_token %}
+		{{ form.as_table }}
+		<input type='submit' value="Go" class="btn btn-dark" />
+	</form>
+</div>
+{% endblock %}
+<hr />
+
+{% block content %}
+<div class="col-md-6 text-center">
+	<div class="calendar">
+		{{ current_month }}
+	</div>
+	<div class="text-center btn btn-group">
+		<!-- <a href="#" class="btn btn-outline-primary">Previous Month</a> -->
+		<a href="{% url 'events:index' %}" class="btn btn-outline-primary">Current Month</a>
+		<!-- <a href="#" class="btn btn-outline-primary">Next Month</a> -->
+	</div>
+</div>
+
+<div class="col-md-6">
+	<div class="overflow overflow-scroll">
+		<a href="{% url 'events:create' %}" class="btn btn-primary btn-block">Create New Event</a>
+		{% if events %}
+			{% for event in events %}
+			<a href="#">
+				<div>{{ event.title }}</div>
+				<div class="badge"> {{ event.event_time }} </div>
+			</a>
+			<!-- need to be ownwer <a href="#" class="btn btn-sm btn-danger"> Delete Event </a> -->
+			<hr>
+			{% endfor %}
+		{% else %}
+			No event available.
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
